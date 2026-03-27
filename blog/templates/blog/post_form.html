@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Post Form - My Blog{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1 style="margin-top: 0">
+      {% if form.instance.pk %}Edit Post{% else %}Create Post{% endif %}
+    </h1>
+
+    <form method="post">
+      {% csrf_token %}
+
+      {% if form.errors %}
+        <div style="color: #b00020; margin-bottom: 10px">
+          {{ form.errors }}
+        </div>
+      {% endif %}
+
+      <div style="margin-bottom: 10px">
+        {{ form.title.label_tag }}
+        {{ form.title }}
+      </div>
+
+      <div style="margin-bottom: 10px">
+        {{ form.content.label_tag }}
+        {{ form.content }}
+      </div>
+
+      <button type="submit">Save</button>
+      {% if form.instance.pk %}
+        <a href="{% url 'blog:post_detail' form.instance.pk %}" style="margin-left: 12px">Cancel</a>
+      {% else %}
+        <a href="{% url 'blog:post_list' %}" style="margin-left: 12px">Cancel</a>
+      {% endif %}
+    </form>
+  </div>
+{% endblock %}
+

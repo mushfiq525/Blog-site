@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Log in - My Blog{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1 style="margin-top: 0">Log in</h1>
+
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}" />
+
+      {% if form.non_field_errors %}
+        <div style="color: #b00020; margin-bottom: 10px">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      <div style="margin-bottom: 10px">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {% if form.username.errors %}
+          <div style="color: #b00020">{{ form.username.errors }}</div>
+        {% endif %}
+      </div>
+
+      <div style="margin-bottom: 10px">
+        {{ form.password.label_tag }}
+        {{ form.password }}
+        {% if form.password.errors %}
+          <div style="color: #b00020">{{ form.password.errors }}</div>
+        {% endif %}
+      </div>
+
+      <button type="submit">Log in</button>
+    </form>
+  </div>
+{% endblock %}
+

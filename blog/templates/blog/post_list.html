@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Posts - My Blog{% endblock %}
+{% block content %}
+  <h1>Blog Posts</h1>
+
+  {% for post in posts %}
+    <div class="card">
+      <h2 style="margin-top: 0">
+        <a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a>
+      </h2>
+      <div style="color: #555">
+        By {{ post.author.username }} on {{ post.created_date }}
+      </div>
+      <div style="margin-top: 8px">
+        <b>{{ post.likes.count }}</b> like{{ post.likes.count|pluralize }}
+      </div>
+    </div>
+  {% empty %}
+    <p>No posts yet.</p>
+  {% endfor %}
+{% endblock %}
+
